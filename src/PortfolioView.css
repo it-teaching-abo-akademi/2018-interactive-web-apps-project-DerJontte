@@ -22,6 +22,7 @@ tr {
     display: block;
     background-color: #CCCCCC;
 }
+
 tr:nth-child(even) {
     display: block;
     background-color: #AAAAAA;

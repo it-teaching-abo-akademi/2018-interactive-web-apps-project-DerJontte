@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import PortfolioView from "./PortfolioView";
 import TopMenu from "./TopMenu";
-import {Portfolio} from "./DataTypes";
+import {Portfolio, StockEntry} from "./DataTypes";
 
 export default class App extends Component {
     portfolios = [];
@@ -31,8 +31,7 @@ export default class App extends Component {
         this.portfolios.push(new Portfolio(this.state.counter));
         this.setState((state, props) => {
             return {counter: state.counter + 1};
-        });
-        this.saveState();
+        }, this.saveState());
     }
 
     deletePortfolio(idx) {
@@ -43,17 +42,18 @@ export default class App extends Component {
                 }
             }
         }
-        this.setState((state, props) => {
-            return {};
-        });
+        this.setState({});
         this.saveState();
     }
 
     render() {
+        let context = {
+
+        }
         return (
             <div className="App">
-                <TopMenu add_portfolio={this.addPortfolio.bind(this)}/>
-                <PortfolioView portfolios={this.portfolios} delete_portfolio={(idx) => this.deletePortfolio(idx)}/>
+                <TopMenu add_portfolio={this.addPortfolio.bind(this)} />
+                <PortfolioView portfolios={this.portfolios} delete_portfolio={(idx) => this.deletePortfolio(idx)} save_state={this.saveState.bind(this)} />
             </div>
         );
     }

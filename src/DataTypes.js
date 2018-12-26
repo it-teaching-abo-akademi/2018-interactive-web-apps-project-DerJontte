@@ -2,13 +2,33 @@ export class Portfolio {
     constructor(id, name = "Unnamed Portfolio") {
         this.id = id;
         this.name = name;
-        this.entries = new Array(50);
+        this.entries = [];
+        this.selected = '';
         this.value = 0;
+        this.addStock = this.addStock.bind(this);
+        this.removeStock = this.removeStock.bind(this);
     }
 
     addStock(entry) {
         this.entries.push(entry);
         this.value += (entry.value * entry.amount);
+
+    }
+
+    removeStock(index, amount) {
+        if(index === undefined || amount === null) return;
+        let entry = this.entries[index];
+
+        if (entry === null) return;
+
+        if (entry.amount == amount) {
+            this.value -= entry.totalValue;
+            this.entries[index] = null;
+            return;
+        }
+        entry.amount -= amount;
+        entry.totalValue = entry.value * entry.amount;
+        this.value -= entry.value * amount;
     }
 }
 

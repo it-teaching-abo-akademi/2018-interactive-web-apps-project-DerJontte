@@ -25,6 +25,7 @@ export default class App extends Component {
     saveState() {
         localStorage.setItem("portfolios", JSON.stringify(this.portfolios));
         localStorage.setItem("state", JSON.stringify(this.state));
+        this.setState({});
     }
 
     addPortfolio() {
@@ -34,26 +35,11 @@ export default class App extends Component {
         }, this.saveState());
     }
 
-    deletePortfolio(idx) {
-        for (let i = 0; i < this.portfolios.length; i++) {
-            if(this.portfolios[i] !== undefined && this.portfolios[i] != null) {
-                if (this.portfolios[i].id === idx) {
-                    delete this.portfolios[i];
-                }
-            }
-        }
-        this.setState({});
-        this.saveState();
-    }
-
     render() {
-        let context = {
-
-        }
         return (
             <div className="App">
                 <TopMenu add_portfolio={this.addPortfolio.bind(this)} />
-                <PortfolioView portfolios={this.portfolios} delete_portfolio={(idx) => this.deletePortfolio(idx)} save_state={this.saveState.bind(this)} />
+                <PortfolioView portfolios={this.portfolios} saveState={this.saveState.bind(this)} />
             </div>
         );
     }

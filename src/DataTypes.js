@@ -16,6 +16,7 @@ export class Portfolio {
     }
 
     removeStock(index, amount) {
+        alert(index + " " + amount);
         if(index === undefined || amount === null) return;
         let entry = this.entries[index];
 

@@ -1,9 +1,7 @@
 import React, {Component} from "react";
-import {Portfolio, StockEntry} from "./DataTypes";
+import {StockEntry} from "./DataTypes";
 import "./PortfolioView.css";
-import App from "./App";
 
-const InstanceContext = React.createContext();
 
 export default class PortfolioView extends Component {
     constructor(props){
@@ -11,7 +9,6 @@ export default class PortfolioView extends Component {
         this.saveState = props.saveState;
         this.portfolios = props.portfolios;
         this.highlighted = false;
-        this.state = {selected: ''};
     }
 
     addStock(portfolio) {
@@ -22,8 +19,8 @@ export default class PortfolioView extends Component {
 
     removeStock(portfolio) {
         let amount = prompt("Amount to remove");
-        portfolio.removeStock(this.state.selected, amount);
-        this.setState({});
+        portfolio.removeStock(portfolio.selected, amount);
+        this.saveState();
     }
 
     highlight(uniqueID) {
@@ -34,17 +31,18 @@ export default class PortfolioView extends Component {
 
     deletePortfolio(idx) {
         for (let i = 0; i < this.portfolios.length; i++) {
-            if (this.portfolios[i] === undefined) continue;
+            // eslint-disable-next-line
+            if (this.portfolios[i] == (undefined || null)) continue;
             if (this.portfolios[i].id === idx) {
-                delete this.portfolios[i];
+                this.portfolios.splice(i, 1);
             }
         }
-        this.setState({});
         this.saveState();
     }
 
-    setSelected(i) {
-        this.setState({selected: i});
+    setSelected(portfolio, i) {
+        portfolio.selected = i;
+        this.setState({});
     }
 
     createStockList(portfolio) {
@@ -52,17 +50,16 @@ export default class PortfolioView extends Component {
         let toReturn = [];
 
         for(let i = 0; i < stockList.length; i++) {
-            if(stockList[i] != null) {
-                toReturn.push(
-                    <tr class="inner-col-10" onClick={this.setSelected.bind(this, i)}>
-                        <td class="inner-col-2">{stockList[i].symbol}</td>
-                        <td class="inner-col-2">{stockList[i].value}</td>
-                        <td class="inner-col-2">{stockList[i].amount}</td>
-                        <td class="inner-col-2">{stockList[i].totalValue}</td>
-                        <td class="inner-col-2"><input type="radio" name={"selection" + portfolio.id} value={i} checked={this.state.selected === i}/></td>
-                    </tr>
-                )
-            }
+            if(stockList[i] == null) continue;
+            toReturn.push(
+                <tr class="inner-col-10" onClick={this.setSelected.bind(this, portfolio, i)}>
+                    <td class="inner-col-2">{stockList[i].symbol}</td>
+                    <td class="inner-col-2">{stockList[i].value}</td>
+                    <td class="inner-col-2">{stockList[i].amount}</td>
+                    <td class="inner-col-2">{stockList[i].totalValue}</td>
+                    <td class="inner-col-2"><input type="radio" name={"selection" + portfolio.id} value={i} checked={portfolio.selected === i}/></td>
+                </tr>
+            )
         }
         return(
             <table>
@@ -75,7 +72,7 @@ export default class PortfolioView extends Component {
                     <td class="inner-col-2">Select</td>
                 </tr>
                 </thead>
-                <tbody>
+                <tbody class="inner-col-10">
                 {toReturn}
                 </tbody>
             </table>
@@ -84,23 +81,21 @@ export default class PortfolioView extends Component {
 
     render() {
         var toReturn = [];
-        var style = {
-            border: "1px solid black",
-        }
 
         for(let i = 0; i < this.portfolios.length; i++) {
-            if (this.portfolios[i] === undefined) continue;
+            // eslint-disable-next-line
+            if (this.portfolios[i] == (undefined || null)) continue;
 
             let currentPortfolio = this.portfolios[i];
-            let deletePortfolio = this.deletePortfolio.bind(this, currentPortfolio.id)
+            let deletePortfolio = this.deletePortfolio.bind(this, currentPortfolio.id);
             let uniqueID = "id" + currentPortfolio.id;
 
             toReturn.push(
-                <div class="portfolio_view_main col-5">
+                <div class="portfolio_view_main col-3">
                     <div className="inner-col-10 portfolio_view_titlebar">
                         <div className="inner-col-1 placeholder"/>
                         <div className="inner-col-8">
-                            {currentPortfolio.name} {currentPortfolio.id}
+                            {currentPortfolio.name}
                         </div>
                         <div className="portfolio_close_button" id={"button" + uniqueID } onMouseOver={this.highlight.bind(this, uniqueID)} onMouseLeave={this.highlight.bind(this, uniqueID)} onClick={deletePortfolio}>
                             X
@@ -113,12 +108,12 @@ export default class PortfolioView extends Component {
                         <div className="inner-col-10">
                             Total value of {currentPortfolio.name} : {currentPortfolio.value}
                         </div>
-                        <div className="inner-col-8">
+                        <div className="inner-col-7">
                             <button id="btn_add_stock" onClick={this.addStock.bind(this, currentPortfolio)}>Add stock</button>
                             <button id="btn_performance">Performance graph</button>
                         </div>
-                        <div className="inner-col-2">
-                            <button className="float_right" onClick={this.removeStock.bind(this, currentPortfolio)}>Remove selected</button>
+                        <div className="inner-col-3">
+                            <button onClick={this.removeStock.bind(this, currentPortfolio)}>Remove selected</button>
                         </div>
                     </div>
                 </div>
@@ -127,21 +122,4 @@ export default class PortfolioView extends Component {
 
         return toReturn;
     }
-}
-
-class MainContent extends Component {
-    constructor(props){
-        super(props);
-        this.state = {selected: ''};
-    }
-
-    setSelected(idx){
-        this.setState(
-            {selected: idx}
-        );
-    }
-
-    componentDidMount(){
-    }
-
 }

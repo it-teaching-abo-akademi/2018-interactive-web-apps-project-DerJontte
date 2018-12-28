@@ -1,7 +1,7 @@
 export class Portfolio {
-    constructor(id, name = "Unnamed Portfolio") {
+    constructor(id, name) {
         this.id = id;
-        this.name = name;
+        this.name = (name != (undefined || "") ? name : "Portfolio #" + id);
         this.entries = [];
         this.selected = '';
         this.value = 0;
@@ -10,21 +10,34 @@ export class Portfolio {
     }
 
     addStock(entry) {
+        if (this.entries.length >= 50){
+            alert("The maximum number of stocks in the current portfolio has been reached.\nPlease delete an existing stock or select another portfolio to continue.");
+            return;
+        }
         this.entries.push(entry);
         this.value += (entry.value * entry.amount);
 
     }
 
     removeStock(index, amount) {
-        alert(index + " " + amount);
-        if(index === undefined || amount === null) return;
+        if(index == undefined || amount === null) return;
         let entry = this.entries[index];
+        if (entry == (undefined || null)) return;
+        if (amount > entry.amount) {
+            // eslint-disable-next-line
+            let removeAll = confirm("You are trying to remove more shares than there are in the selected stock. Do you want to remove all " + entry.amount + " shares and delete the entry?");
+            if (removeAll) {
+                amount = entry.amount;
+            } else {
+                return;
+            }
+        }
 
-        if (entry === null) return;
-
+        // eslint-disable-next-line
         if (entry.amount == amount) {
             this.value -= entry.totalValue;
-            this.entries[index] = null;
+            this.entries.splice(index, 1);
+            this.selected = '';
             return;
         }
         entry.amount -= amount;

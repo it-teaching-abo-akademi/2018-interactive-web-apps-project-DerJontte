@@ -1,0 +1,186 @@
+/* Set all elements to be resized by their actual outer bounds */
+* {
+    box-sizing: border-box;
+}
+
+body {
+    padding: 10px;
+    font-family: Arial;
+    font-size: 14px;
+}
+
+button {
+    margin-right: 10px;
+}
+
+/* Create columns for building a reactive UI */
+.col-1 { width: 8.33% }
+.col-2 { width: 16.66% }
+.col-3 { width: 25% }
+.col-4 { width: 33.33% }
+.col-5 { width: 41.66% }
+.col-6 { width: 50% }
+.col-7 { width: 58.33% }
+.col-8 { width: 66.66% }
+.col-9 { width: 75% }
+.col-10 { width: 83.33% }
+.col-11 { width: 91.66% }
+.col-12 { width: 100% }
+
+[class*="col-"] {
+    float: left;
+    padding: 0;
+}
+
+/* Create columns for use in non-reactive elements */
+.inner-col-half { width: 5% }
+.inner-col-1 { width: 10% }
+.inner-col-2 { width: 20% }
+.inner-col-3 { width: 30% }
+.inner-col-4 { width: 40% }
+.inner-col-5 { width: 50% }
+.inner-col-6 { width: 60% }
+.inner-col-7 { width: 70% }
+.inner-col-8 { width: 80% }
+.inner-col-9 { width: 90% }
+.inner-col-10 { width: 100% }
+
+[class*="inner-col-"] {
+    float: left;
+    padding: 0;
+}
+
+.float-right {
+    float: right;
+}
+
+.top_bar {
+    float: left;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.top_bar #divs {
+    width: 50%;
+    border: 1px solid red;
+}
+
+@media screen and (max-width: 1300px) {
+    .top_bar ul {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-evenly;
+    }
+}
+
+@media screen and (max-width: 768px){
+    [class^="col-"] {
+        width: 100%;
+    }
+}
+
+
+@media screen and (max-width: 450px){
+    #bottom_bar {
+        height: 80px;
+    }
+}
+
+.portfolio-container {
+    width: 48%;
+    float: left;
+    background-color: rgba(222, 222, 160, 0.3);
+    position: relative;
+    border: 1px solid black;
+    padding: 0px;
+    height: 40vh;
+    margin-right: 10px;
+    margin-bottom: 10px;
+}
+
+.portfolio_view_titlebar {
+    background-color: #DDA;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    height: auto;
+    padding: 10px;
+    border-bottom: 1px solid black;
+    text-align: center;
+}
+
+.portfolio_close_button {
+    float: right;
+    position: absolute;
+    display: table-cell;
+    background-color: darkred;
+    color: white;
+    font-family: Corbel, monospace;
+    font-weight: bold;
+    width: 1.4em;
+    height: 1.3em;
+    border-bottom: 1px solid darkred;
+    top: 8px;
+    right: 7px;
+    cursor: default;
+}
+
+.portfolio_view_bottom_bar {
+    position: absolute;
+    bottom: 0px;
+    height: auto;
+    border-top: 1px solid black;
+    background-color: #DDA;
+    padding: 8px 5px 15px 15px;
+}
+
+.portfolio_view_bottom_bar button {
+    margin-top: 5px;
+}
+
+table {
+    position: static;
+    display: block;
+    text-align: center;
+}
+
+thead {
+    display: block;
+}
+
+tbody {
+    display: block;
+    overflow: auto;
+    max-height: 248px;
+    background-color: #EEE;
+}
+
+tr {
+    display: block;
+    background-color: #CCC;
+}
+
+tr:nth-child(even) {
+    display: block;
+    background-color: #AAA;
+}
+
+td {
+    margin-top: 4px;
+}
+
+th {
+    display: flex;
+    background-color: #CCC;
+    height: 1.8em;
+    font-weight: normal;
+    border-bottom: 1px solid black;
+}
+
+@media screen and (max-width: 1024px) {
+    .portfolio-container {
+        width: 96%;
+    }
+}

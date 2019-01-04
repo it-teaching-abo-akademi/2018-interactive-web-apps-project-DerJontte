@@ -1,3 +1,5 @@
+import {Currency} from "./Currency";
+
 export class Portfolio {
     constructor(id, name) {
         this.id = id;
@@ -5,18 +7,27 @@ export class Portfolio {
         this.entries = [];
         this.selected = '';
         this.value = 0;
+        this.currency = "EUR";
         this.addStock = this.addStock.bind(this);
         this.removeStock = this.removeStock.bind(this);
+        this.state = {};
     }
 
     addStock(entry) {
-        if (this.entries.length >= 50){
-            alert("The maximum number of stocks in the current portfolio has been reached.\nPlease delete an existing stock or select another portfolio to continue.");
-            return;
-        }
         this.entries.push(entry);
-        this.value += (entry.value * entry.amount);
+        this.value += entry.totalValue;
+    }
 
+    getValue() {
+        return (this.currency == "USD") ? this.value : Currency.DtoE(this.value);
+    }
+
+    changeCurrency() {
+        this.currency = (this.currency == "EUR") ? "USD" : "EUR";
+    }
+
+    getCurrentRate() {
+        return (this.currency == "EUR") ? 1 : Currency.rateEtoD;
     }
 
     removeStock(index, amount) {
@@ -50,8 +61,13 @@ export class StockEntry {
     constructor(symbol, value, amount = 0, updated = null){
         this. symbol = symbol;
         this.value = value;
+        this.getValue = this.getValue();
         this.amount = amount;
-        this.totalValue = this.value * this.amount;
+        this.totalValue = Currency.round(this.value * this.amount);
         this.updated = updated;
+    }
+
+    getValue() {
+        return this.value;
     }
 }

@@ -18,11 +18,16 @@ export class Switch extends React.Component {
         var leftBorder = 15 * this.state.on;
         var rightBorder = 15 * !this.state.on;
 
-        var divStyle = {
-            width: "300px"
+        var divStyle ={
+            display: "flex",
+            flexDirection: "row",
+            justifyContent: "flex-end",
+            alignItems: "center",
+            flexGrow: 2,
         }
+
         var buttonStyle = {
-            height: "30%",
+            height: "15px",
             width: "30px",
             border: 0,
             padding: 0,
@@ -34,7 +39,11 @@ export class Switch extends React.Component {
             backgroundColor: "#BBB"
         }
         return (
+            <div style={divStyle}>
+                {this.props.labelOff}
                 <button style={buttonStyle} onClick={this.flip.bind(this)}/>
+                {this.props.labelOn}
+            </div>
         );
     }
 }

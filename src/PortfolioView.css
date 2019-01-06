@@ -1,26 +1,29 @@
 .portfolio_section {
+    width: 100%;
     display: flex;
     float: left;
     flex-wrap: wrap;
-    justify-content: space-evenly;
-    max-width: 1400px;
+    justify-content: center;
 }
 
 .portfolio_container_flex {
+    --container-max-width: 650px;
+    --container-min-width: 200px;
     display: flex;
     flex-direction: column;
     float: left;
-    width: 46%;
-    max-width: 650px;
+    width: calc(50% - 40px);
+    max-width: var(--container-max-width);
+    min-width: var(--container-min-width);
     border: 1px solid black;
-    margin-bottom: 20px;
+    margin: 0 15px 20px;
 }
 
 .titlebar_flex {
     background-color: #DDA;
     display: flex;
+    min-height: 40px;
     align-items: center;
-    justify-content: space-evenly;
     padding: 10px;
     border-bottom: 1px solid black;
     text-align: center;
@@ -53,11 +56,18 @@
 }
 
 .bottom_bar_flex {
-    bottom: 0px;
     height: auto;
+    max-width: calc(var(--container-max-width) - 2px);
+    min-width: calc(var(--container-min-width) - 2px);
     border-top: 1px solid black;
     background-color: #DDA;
     padding: 8px 5px 15px 15px;
+}
+
+.bottom_bar_flex #text {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 .bottom_bar_flex button {
@@ -71,6 +81,9 @@ table {
 
 thead {
     display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 }
 
 /*noinspection CssInvalidPropertyValue*/
@@ -109,8 +122,69 @@ th {
 
 @media screen and (max-width: 1024px) {
     .portfolio_container_flex {
-        width: 96%;
+        --container-width: calc(100vw - 50px);
+        width: var(--container-width);
+    }
+
+    .bottom_bar_flex {
+        display: table-cell;
+        height: auto;
+        width: calc(var(--container-width) - 2px);
     }
 }
 
+@media screen and (max-width: 446px) {
+    .bottom_bar_flex {
+        padding: 2px 5px 6px 5px;
+    }
+
+    .bottom_bar_flex button {
+        margin-top: 2px;
+    }
+
+    .inner-col-6 {
+        width: 70%;
+    }
+
+    .inner-col-4 {
+        width: 30%;
+    }
+}
+
+@media screen and (max-width: 382px) {
+    .bottom_bar_flex {
+        padding-bottom: 4px;
+    }
+}
+
+
+@media screen and (max-width: 266px) {
+    .titlebar_flex {
+        font-size: 10px;
+    }
+}
+
+@media screen and (max-height: 425px) {
+    .portfolio_container_flex {
+        height: calc(100vh - 22px);
+    }
+
+    .titlebar_flex {
+        min-height: 46px;
+    }
+
+    tbody {
+        max-height: calc(100vh - 164px);
+    }
+}
+
+@media screen and (max-height: 235px) {
+    .portfolio_container_flex {
+        height: 205px;
+    }
+
+    tbody {
+        max-height: 72px;
+    }
+}
 

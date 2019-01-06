@@ -1,0 +1,61 @@
+#chart_div {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.3);
+    z-index: 1;
+    visibility: hidden;
+}
+
+#chart {
+    position: absolute;
+    display: block;
+    top: 5%;
+    left: 50%;
+    width: 580px;
+    transform: translate(-50%, -3%);
+    padding: 10px 10px 15px 15px;
+    border: 2px solid black;
+    background-color: white;
+    font-family: monospace;
+}
+
+#chart input {
+    margin-right: 10px;
+}
+
+.chart_date {
+    float: left;
+    width: 40%;
+}
+
+.chart_close_container {
+    float: right;
+    width: 20%;
+}
+
+@media screen and (max-width: 660px) {
+    #chart {
+        width: 88%;
+        min-width: 0;
+    }
+
+    .chart_date {
+        width: 60%;
+    }
+
+    .chart_close_container {
+        width: 20%;
+    }
+}
+
+@media screen and (max-height: 340px) {
+    #chart {
+        display: flex;
+        flex-direction: column;
+        overflow: scroll;
+        max-height: 95%;
+    }
+}

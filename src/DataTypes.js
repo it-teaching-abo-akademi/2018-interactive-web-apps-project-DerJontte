@@ -26,8 +26,18 @@ export class Portfolio {
         this.currency = (this.currency == "EUR") ? "USD" : "EUR";
     }
 
-    getCurrentRate() {
-        return (this.currency == "EUR") ? 1 : Currency.rateEtoD;
+    getCurrentRate(value = 1) {
+        let toReturn = parseFloat((this.currency == "USD") ? value : Currency.DtoE(value));
+        return toReturn.toFixed(2);
+    }
+
+    getCurrentValue(stock) {
+        if (stock.symbol in localStorage) {
+            stock.setValue(JSON.parse(localStorage.getItem(stock.symbol))["value"]);
+            this.calculateValue();
+        }
+        var toReturn = parseFloat((this.currency == "USD") ? stock.value : Currency.DtoE(stock.value));
+        return toReturn.toFixed(2);
     }
 
     removeStock(index, amount) {
@@ -55,19 +65,30 @@ export class Portfolio {
         entry.totalValue = entry.value * entry.amount;
         this.value -= entry.value * amount;
     }
+
+    calculateValue() {
+        var newValue = 0;
+        for (let i = 0; i < this.entries.length; i++) {
+            newValue += this.entries[i].getValue();
+        }
+    }
 }
 
 export class StockEntry {
     constructor(symbol, value, amount = 0, updated = null){
         this. symbol = symbol;
         this.value = value;
-        this.getValue = this.getValue();
         this.amount = amount;
-        this.totalValue = Currency.round(this.value * this.amount);
+        this.totalValue = this.value * this.amount;
         this.updated = updated;
     }
 
     getValue() {
         return this.value;
+    }
+
+    setValue(newValue) {
+        this.value = newValue;
+        this.totalValue = this.value * this.amount;
     }
 }

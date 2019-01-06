@@ -5,7 +5,7 @@ import {Currency} from "./Currency";
 import StockServerData from "./StockServerData";
 import PerfGraph from "./PerfGraph";
 import "./styles.css";
-import "./PortfolioViewFlex.css";
+import "./PortfolioView.css";
 
 export default class PortfolioView extends Component {
     constructor(props){
@@ -193,9 +193,9 @@ class BottomBar extends Component {
         let currentPortfolio = this.props.currentPortfolio;
         return(
             <div className="bottom_bar_flex">
-                <div>
-                    Total value of
-                    portfolio : {currentPortfolio.getCurrentRate(currentPortfolio.value)} {currentPortfolio.currency}
+                <div id="text">
+                        Total value of
+                        portfolio : {currentPortfolio.getCurrentRate(currentPortfolio.value)} {currentPortfolio.currency}
                 </div>
                 <div className="inner-col-6">
                     <button id="btn_add_stock" onClick={this.props.addStock}>Add stock</button>

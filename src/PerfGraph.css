@@ -11,7 +11,6 @@
 
 #chart {
     position: absolute;
-    display: block;
     top: 5%;
     left: 50%;
     width: 580px;
@@ -26,14 +25,18 @@
     margin-right: 10px;
 }
 
+.chart_controls {
+    display: flex;
+}
+
+button#closeButton {
+    align-self: flex-end;
+    flex-grow: 1;
+}
+
 .chart_date {
     float: left;
     width: 40%;
-}
-
-.chart_close_container {
-    float: right;
-    width: 20%;
 }
 
 @media screen and (max-width: 660px) {
@@ -42,18 +45,20 @@
         min-width: 0;
     }
 
-    .chart_date {
-        width: 60%;
+    .chart_controls {
+        display: initial;
     }
 
-    .chart_close_container {
-        width: 20%;
+    .chart_date {
+        width: 60%;
     }
 }
 
 @media screen and (max-height: 340px) {
+    #chart_div {
+    }
     #chart {
-        display: flex;
+        min-width: 230px;
         flex-direction: column;
         overflow: scroll;
         max-height: 95%;

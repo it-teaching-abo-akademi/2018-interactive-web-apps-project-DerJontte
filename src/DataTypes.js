@@ -13,9 +13,24 @@ export class Portfolio {
         this.state = {};
     }
 
-    addStock(entry) {
-        this.entries.push(entry);
-        this.value += entry.totalValue;
+    addStock(...args) {
+        var entry = args[0];
+        switch (args.length) {
+            case 1:
+                var index = this.entries.length;
+                var toRemove = 0;
+                break;
+            case 2:
+                index = args[1];
+                toRemove = 1;
+                entry.amount = parseInt(entry.amount) + parseInt(this.entries[index].amount);
+                entry.totalValue = entry.getTotalValue();
+                break;
+            default:
+                return;
+        }
+        this.entries.splice(index, toRemove, args[0]);
+        this.calculateValue();
     }
 
     getValue() {
@@ -69,22 +84,31 @@ export class Portfolio {
     calculateValue() {
         var newValue = 0;
         for (let i = 0; i < this.entries.length; i++) {
-            newValue += this.entries[i].getValue();
+            newValue += parseFloat(this.entries[i].getTotalValue());
         }
+        this.value = newValue;
     }
 }
 
 export class StockEntry {
     constructor(symbol, value, amount = 0, updated = null){
-        this. symbol = symbol;
+        this.symbol = symbol;
         this.value = value;
         this.amount = amount;
         this.totalValue = this.value * this.amount;
         this.updated = updated;
     }
 
+    get() {
+        return this.symbol;
+    }
+
     getValue() {
         return this.value;
+    }
+
+    getTotalValue() {
+        return this.value * this.amount;
     }
 
     setValue(newValue) {

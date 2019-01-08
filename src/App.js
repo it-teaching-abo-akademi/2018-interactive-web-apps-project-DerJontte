@@ -2,8 +2,6 @@ import React, { Component } from 'react';
 import PortfolioView from "./PortfolioView";
 import {Portfolio, StockEntry} from "./DataTypes";
 import StockServerData from "./StockServerData";
-import {Currency} from "./Currency";
-import BusyOverlay from "./BusyOverlay";
 import TopBar from "./TopBar";
 
 export default class App extends Component {
@@ -58,11 +56,15 @@ export default class App extends Component {
 
     updateValues() {
         this.portfolios.forEach(async portfolio => {
+            if (!("requestLimit" in sessionStorage && sessionStorage.getItem("requestLimit") < Date.now() - 61000)) {
+                alert("The maximum number of requests per minute has been reached, please wait a moment and try again.");
+                return;
+            }
             let newValue = 0;
             for (let i = 0; i < portfolio.entries.length; i++) {
                 let result = await StockServerData.getCurrentStockValue(this, portfolio.entries[i].symbol);
                 if (result != 200) {
-                    alert("Status " + result + ": Could not fetch all stock values, please try again later");
+                    alert("Status " + result + ": Could not fetch all stock values, please try again later.");
                     return result;
                 }
                 newValue += portfolio.entries[i].totalValue;

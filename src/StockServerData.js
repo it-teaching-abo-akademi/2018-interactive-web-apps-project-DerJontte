@@ -1,3 +1,5 @@
+import BusyOverlay from "./BusyOverlay";
+
 class ServerSettings {
     static apikey = "anything2";
     static server ="https://www.alphavantage.co/query?function=";
@@ -20,7 +22,7 @@ export default class StockServerData {
     }
 
     static async getCurrentStockValue(caller, symbol) {
-        let timeout = 1000 * 60;
+        let timeout = 1000 * 60 * 30;
         this.whoCalled = caller;
         symbol = symbol.toUpperCase();
         let JSONKeys = ["Global Quote", "05. price"]
@@ -57,10 +59,13 @@ export default class StockServerData {
             xhttp.onload = function() {
                 let returnValue = JSON.parse(this.responseText);
                 if ("Note" in returnValue) {
-                    let message = "Could not fetch all stock data. Try again in a moment. The server said:\n\n";
-                    alert(message + JSON.parse(this.responseText)["Note"]);
+                    if (!("requestLimit" in sessionStorage && sessionStorage.getItem("requestLimit") > Date.now() - 61000)) {
+                        let message = "Could not fetch all requested stock data due to restrictions on free AlphaVantage API-keys, try again in a moment.\n\nThe server said:\n";
+                        alert(message + JSON.parse(this.responseText)["Note"]);
+                        sessionStorage.setItem("requestLimit", Date.now());
+                    }
                     clearTimeout(timeout);
-                    resolve(-1);
+                    resolve(200);
                     return;
                 }
                 JSONKeys.forEach(key => returnValue = returnValue[key]);

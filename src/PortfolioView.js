@@ -4,27 +4,42 @@ import {StockEntry} from "./DataTypes";
 import {Currency} from "./Currency";
 import StockServerData from "./StockServerData";
 import PerfGraph from "./PerfGraph";
-import "./styles.css";
-import "./PortfolioView.css";
+import "./Styles.css";
+import BusyOverlay from "./BusyOverlay";
 
 export default class PortfolioView extends Component {
     constructor(props){
         super(props);
         this.saveState = props.saveState;
         this.portfolios = props.portfolios;
-        this.highlighted = false;
     }
 
     async addStock(portfolio) {
-        if (portfolio.entries.length >= 50) {
-            alert("The maximum number of stocks in the current portfolio has been reached.\nPlease delete an existing stock or select a different portfolio to continue.");
-            return;
-        }
+        let stockFound = false;
         let value, amount;
+
+        if (portfolio.entries.length >= 50) {
+            // eslint-disable-next-line
+            var addExisting = confirm("The maximum number of stocks in the current portfolio has been reached. Do you wish to add shares to an existing stock?");
+            if (addExisting == false) return;
+        }
 
         let symbol = prompt("Please enter stock symbol");
         if (!symbol) return;
         symbol = symbol.toUpperCase();
+
+        for (let i = 0; i < portfolio.entries.length; i++) {
+            if (portfolio.entries[i].symbol == symbol) {
+                stockFound = true;
+                var existingIndex = i;
+                break;
+            }
+        }
+
+        if (addExisting && !stockFound) {
+            alert("The entered symbol does not exist in portfolio.");
+            return;
+        }
 
         let doConvert = true;
         if (symbol in localStorage) {
@@ -33,27 +48,34 @@ export default class PortfolioView extends Component {
         }
 
         while (!value || isNaN(value)) {
-            value = prompt("Please enter value per share in " + portfolio.currency + ".\nEnter 0 to fetch the current value from AlphaVantage.");
+            value = prompt("Please enter value per share in " + portfolio.currency + ".\nLeave blank to fetch the current value from AlphaVantage.");
             if (value === null) return;
-            if (value == 0) {
+            if (value < 0) value = ".";
+            if (value === '') {
+                BusyOverlay.set();
                 let response = await StockServerData.getCurrentStockValue(this, symbol);
+                BusyOverlay.unset();
                 if (response == 200) {
                     value = JSON.parse(localStorage.getItem(symbol))["value"];
                 } else {
                     localStorage.removeItem(symbol);
-                    alert("Could not fetch stock value from server");
-                    value = 0;
+                    alert("Could not fetch stock value from server. Please try again or enter value manually.");
+                    value = ".";
                 }
             }
         }
 
-        while (!amount || isNaN(amount) || amount % 1 != 0) {
-            amount = prompt("Please enter the number of shares in the stock");
+        while (!amount || isNaN(amount) || amount % 1 != 0 || amount < 0) {
+            amount = prompt("Please enter the number of shares to add.");
             if (amount === null) return;
         }
         if (portfolio.currency == "EUR" && doConvert) value = Currency.EtoD(value);
-        let entry = new StockEntry(symbol, value, amount);
-        portfolio.addStock(entry);
+
+        if (stockFound) {
+            portfolio.addStock(new StockEntry(symbol, value, amount), existingIndex);
+        } else {
+            portfolio.addStock(new StockEntry(symbol, value, amount));
+        }
         this.saveState();
     }
 
@@ -61,12 +83,6 @@ export default class PortfolioView extends Component {
         let amount = prompt("Amount to remove");
         portfolio.removeStock(portfolio.selected, amount);
         this.saveState();
-    }
-
-    highlight(uniqueID) {
-        let button = document.getElementById("button" + uniqueID).style;
-        button.backgroundColor = this.highlighted ? "darkred" : "firebrick";
-        this.highlighted = !this.highlighted;
     }
 
     deletePortfolio(removeID) {
@@ -149,7 +165,7 @@ export default class PortfolioView extends Component {
 
             toReturn.push(
                 <div class="portfolio_container_flex">
-                    <TitleBar currentPortfolio={currentPortfolio} uniqueID={uniqueID} deletePortfolio={deletePortfolio} highlight={this.highlight.bind(this, uniqueID)} saveState={this.saveState}/>
+                    <TitleBar currentPortfolio={currentPortfolio} uniqueID={uniqueID} deletePortfolio={deletePortfolio} saveState={this.saveState}/>
                     {this.createStockList(currentPortfolio)}
                     <BottomBar currentPortfolio={currentPortfolio} addStock={this.addStock.bind(this, currentPortfolio)} removeStock={this.removeStock.bind(this, currentPortfolio)} createGraph={this.createGraph.bind(this, currentPortfolio)}/>
                 </div>
@@ -175,7 +191,7 @@ class TitleBar extends Component{
                     {this.props.currentPortfolio.name}
                 </div>
                 <Switch labelOff="EUR" labelOn="USD" onChange={this.props.currentPortfolio.changeCurrency.bind(this.props.currentPortfolio)} saveState={this.props.saveState} on={this.props.currentPortfolio.currency == "EUR"}/>
-                <div className="close_button_flex" id={"button" + this.props.uniqueID } onMouseOver={this.props.highlight} onMouseLeave={this.props.highlight} onClick={this.props.deletePortfolio}>
+                <div className="close_button_flex" id={"button" + this.props.uniqueID } onClick={this.props.deletePortfolio}>
                     X
                 </div>
             </div>
@@ -194,8 +210,8 @@ class BottomBar extends Component {
         return(
             <div className="bottom_bar_flex">
                 <div id="text">
-                        Total value of
-                        portfolio : {currentPortfolio.getCurrentRate(currentPortfolio.value)} {currentPortfolio.currency}
+                    Total value of
+                    portfolio : {currentPortfolio.getCurrentRate(currentPortfolio.value)} {currentPortfolio.currency}
                 </div>
                 <div className="inner-col-6">
                     <button id="btn_add_stock" onClick={this.props.addStock}>Add stock</button>
@@ -224,20 +240,17 @@ class Switch extends React.Component {
     }
 
     render() {
-        var leftBorder = 15 * this.state.on;
-        var rightBorder = 15 * !this.state.on;
-
         var buttonStyle = {
             height: "15px",
             width: "30px",
             border: 0,
             padding: 0,
             margin: "5px",
-            borderLeft: leftBorder + "px solid #D00",
-            borderRight: rightBorder + "px solid #D00",
+            borderRight: "15px solid #D00",
             outline: "none",
             borderRadius: "10px",
-            backgroundColor: "#BBB"
+            backgroundColor: "#BBB",
+            transform: "rotate(" + 180 * this.state.on + "deg)"
         }
         return (
             <div class="switch_flex">

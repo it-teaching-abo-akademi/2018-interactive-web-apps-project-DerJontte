@@ -141,9 +141,7 @@ export default class PerfGraph extends Component {
                             <label for="endDate">End date: &nbsp;&nbsp;</label>
                             <input id="endDate" type="date" min={null} max={null} value={null}/>
                         </div>
-                        <div className="chart_close_container">
-                            <button id="closeButton" class="float-right" onClick={PerfGraph.closeChart.bind(this)}>Close</button>
-                        </div>
+                        <button id="closeButton" class="float-right" onClick={PerfGraph.closeChart.bind(this)}>Close</button>
                     </div>
                 </div>
             </div>

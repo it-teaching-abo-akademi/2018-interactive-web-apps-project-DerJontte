@@ -3,12 +3,12 @@ import gear from "./BusyGear.svg";
 import "./BusyOverlay.css";
 
 export default class BusyOverlay extends Component {
-    static set() {
+    static async set() {
         this.overlay = document.getElementById("busy_overlay");
         this.overlay.style.visibility = "visible";
     }
 
-    static unset() {
+    static async unset() {
         this.overlay.style.visibility = "hidden";
     }
 

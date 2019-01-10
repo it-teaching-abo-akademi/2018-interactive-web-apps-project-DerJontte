@@ -5,14 +5,14 @@
       <paths name="abo.fi">
         <serverdata>
           <mappings>
-            <mapping local="$PROJECT_DIR$" web="/" />
+            <mapping deploy="smps" local="$PROJECT_DIR$" web="/" />
           </mappings>
         </serverdata>
       </paths>
       <paths name="tuxedo">
         <serverdata>
           <mappings>
-            <mapping local="$PROJECT_DIR$" web="/" />
+            <mapping deploy="smps" local="$PROJECT_DIR$" web="/" />
           </mappings>
         </serverdata>
       </paths>

@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/it-teaching-abo-akademi/2018-interactive-web-apps-project-DerJontte/build/precache-manifest.7bd3ffd8c45093897dab950893219c1e.js"
+  "/2018-interactive-web-apps-project-DerJontte/precache-manifest.50357672e54806809296018982ebff5b.js"
 );
 
 workbox.clientsClaim();
@@ -28,7 +28,7 @@ self.__precacheManifest = [].concat(self.__precacheManifest || []);
 workbox.precaching.suppressWarnings();
 workbox.precaching.precacheAndRoute(self.__precacheManifest, {});
 
-workbox.routing.registerNavigationRoute("/it-teaching-abo-akademi/2018-interactive-web-apps-project-DerJontte/build/index.html", {
+workbox.routing.registerNavigationRoute("/2018-interactive-web-apps-project-DerJontte/index.html", {
   
   blacklist: [/^\/_/,/\/[^\/]+\.[^\/]+$/],
 });

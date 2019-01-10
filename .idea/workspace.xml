@@ -2,11 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7277e7fc-82f9-4060-8006-7486430a4995" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/src/StockEntry.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/PortfolioDataClasses.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/Portfolio.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/PerformanceGraph.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/PerformanceGraph.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/PortfolioView.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/PortfolioView.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/TopBar.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/TopBar.js" afterDir="false" />
     </list>
     <ignored path="$PROJECT_DIR$/.tmp/" />
     <ignored path="$PROJECT_DIR$/temp/" />
@@ -32,10 +31,10 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="css" value="47" />
+          <entry key="css" value="48" />
           <entry key="html" value="22" />
           <entry key="ico" value="1" />
-          <entry key="js" value="184" />
+          <entry key="js" value="187" />
           <entry key="json" value="16" />
           <entry key="md" value="1" />
           <entry key="svg" value="5" />
@@ -45,11 +44,11 @@
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="CSS" value="47" />
+          <entry key="CSS" value="48" />
           <entry key="HTML" value="22" />
           <entry key="Image" value="1" />
           <entry key="JSON" value="16" />
-          <entry key="JavaScript" value="184" />
+          <entry key="JavaScript" value="187" />
           <entry key="Markdown" value="1" />
           <entry key="SVG" value="5" />
           <entry key="XML" value="1" />
@@ -58,9 +57,9 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="css" value="14364" />
+          <entry key="css" value="14389" />
           <entry key="html" value="438" />
-          <entry key="js" value="75293" />
+          <entry key="js" value="76030" />
           <entry key="json" value="10" />
           <entry key="svg" value="1" />
           <entry key="yml" value="1" />
@@ -68,10 +67,10 @@
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="CSS" value="14364" />
+          <entry key="CSS" value="14389" />
           <entry key="HTML" value="438" />
           <entry key="JSON" value="10" />
-          <entry key="JavaScript" value="75293" />
+          <entry key="JavaScript" value="76030" />
           <entry key="SVG" value="1" />
           <entry key="YAML" value="1" />
         </counts>
@@ -89,19 +88,10 @@
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/PortfolioView.js">
+        <entry file="file://$PROJECT_DIR$/src/TopBar.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="3825">
-              <caret line="225" column="16" lean-forward="true" selection-start-line="225" selection-start-column="16" selection-end-line="225" selection-end-column="16" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/Portfolio.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="272">
-              <caret line="16" selection-start-line="16" selection-end-line="16" />
+            <state relative-caret-position="477">
+              <caret line="74" selection-start-line="74" selection-end-line="74" />
             </state>
           </provider>
         </entry>
@@ -118,8 +108,17 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/PerformanceGraph.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="237">
-              <caret line="104" lean-forward="true" selection-start-line="104" selection-end-line="104" />
+            <state relative-caret-position="528">
+              <caret line="226" lean-forward="true" selection-start-line="226" selection-end-line="226" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/Styles.css">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="170">
+              <caret line="10" selection-start-line="10" selection-end-line="10" />
             </state>
           </provider>
         </entry>
@@ -224,21 +223,21 @@
         <option value="$PROJECT_DIR$/src/BusyOverlay.css" />
         <option value="$PROJECT_DIR$/src/BusyGear.svg" />
         <option value="$PROJECT_DIR$/src/PerfGraph.css" />
-        <option value="$PROJECT_DIR$/src/TopBar.js" />
-        <option value="$PROJECT_DIR$/src/Styles.css" />
         <option value="$PROJECT_DIR$/src/StockServerData.js" />
         <option value="$PROJECT_DIR$/src/PerfGraph.js" />
         <option value="$PROJECT_DIR$/src/BusyOverlay.js" />
         <option value="$PROJECT_DIR$/package.json" />
         <option value="$PROJECT_DIR$/package-lock.json" />
         <option value="$PROJECT_DIR$/src/index.js" />
-        <option value="$PROJECT_DIR$/src/PerformanceGraph.js" />
         <option value="$PROJECT_DIR$/public/index.html" />
         <option value="$PROJECT_DIR$/src/PortfolioDataClasses.js" />
         <option value="$PROJECT_DIR$/src/App.js" />
         <option value="$PROJECT_DIR$/src/StockEntry.js" />
         <option value="$PROJECT_DIR$/src/Portfolio.js" />
+        <option value="$PROJECT_DIR$/src/PerformanceGraph.js" />
         <option value="$PROJECT_DIR$/src/PortfolioView.js" />
+        <option value="$PROJECT_DIR$/src/Styles.css" />
+        <option value="$PROJECT_DIR$/src/TopBar.js" />
       </list>
     </option>
   </component>
@@ -409,7 +408,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="463172000" />
+    <option name="totallyTimeSpent" value="465756000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -424,9 +423,9 @@
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" sideWeight="0.75605816" visible="true" weight="0.16364606" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" sideWeight="0.75477237" visible="true" weight="0.16364606" />
       <window_info id="Structure" order="1" sideWeight="0.24394184" side_tool="true" weight="0.16204691" />
-      <window_info active="true" id="npm" order="2" sideWeight="0.24394184" side_tool="true" visible="true" weight="0.16364606" />
+      <window_info id="npm" order="2" sideWeight="0.2452276" side_tool="true" visible="true" weight="0.16364606" />
       <window_info id="Favorites" order="3" sideWeight="0.2393539" side_tool="true" weight="0.16044776" />
       <window_info anchor="bottom" id="Messages" order="0" />
       <window_info anchor="bottom" id="Message" order="1" />
@@ -481,22 +480,9 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/BottomBar.js" />
     <entry file="file://$PROJECT_DIR$/src/BusyOverlay.css" />
-    <entry file="file://$PROJECT_DIR$/src/PerfGraph.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="3" selection-start-line="3" selection-end-line="3" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/src/PerfGraph.css" />
     <entry file="file://$PROJECT_DIR$/src/BusyGear.svg">
       <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Styles.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="1" column="22" selection-start-line="1" selection-start-column="22" selection-end-line="1" selection-end-column="22" />
-        </state>
-      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/StockServerData.js">
       <provider selected="true" editor-type-id="text-editor" />
@@ -505,13 +491,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="697">
           <caret line="41" column="20" selection-start-line="41" selection-start-column="20" selection-end-line="41" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/TopBar.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="3" selection-start-line="3" selection-end-line="3" />
         </state>
       </provider>
     </entry>
@@ -535,13 +514,7 @@
     <entry file="file://$PROJECT_DIR$/public/manifest.json">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/package-lock.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="5743">
-          <caret line="4503" column="29" lean-forward="true" selection-start-line="4503" selection-start-column="29" selection-end-line="4503" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/package-lock.json" />
     <entry file="file://$PROJECT_DIR$/public/index.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="51">
@@ -570,6 +543,13 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/src/Portfolio.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="16" selection-start-line="16" selection-end-line="16" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/index.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="119">
@@ -579,22 +559,29 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/PerformanceGraph.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="237">
-          <caret line="104" lean-forward="true" selection-start-line="104" selection-end-line="104" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Portfolio.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="16" selection-start-line="16" selection-end-line="16" />
+        <state relative-caret-position="528">
+          <caret line="226" lean-forward="true" selection-start-line="226" selection-end-line="226" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/PortfolioView.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3825">
-          <caret line="225" column="16" lean-forward="true" selection-start-line="225" selection-start-column="16" selection-end-line="225" selection-end-column="16" />
+        <state relative-caret-position="17">
+          <caret line="251" column="35" selection-start-line="251" selection-start-column="35" selection-end-line="251" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Styles.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="10" selection-start-line="10" selection-end-line="10" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/TopBar.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="477">
+          <caret line="74" selection-start-line="74" selection-end-line="74" />
         </state>
       </provider>
     </entry>

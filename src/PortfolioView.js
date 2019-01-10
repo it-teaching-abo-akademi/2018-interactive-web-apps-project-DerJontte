@@ -249,7 +249,7 @@ class StockList extends Component {
             display: block;
         `;
 
-        const HeaderRow = styled.th`
+        const HeaderRow = styled.tr`
             display: flex;
             background-color: #CCC;
             min-height: 1.8em;
@@ -321,7 +321,7 @@ class StockList extends Component {
                     <Cell>{unitValue} {portfolio.currency}</Cell>
                     <Cell>{stockList[i].amount}</Cell>
                     <Cell>{totalValue} {portfolio.currency}</Cell>
-                    <Cell><input type="radio" name={"selection" + portfolio.id} checked={portfolio.selected === i}/></Cell>
+                    <Cell><input type="radio" name={"selection" + portfolio.id} checked={portfolio.selected === i} readOnly={true}/></Cell>
                 </TableRow>
             )
         }

@@ -212,12 +212,10 @@ export default class PerformanceGraph extends Component {
                     <canvas id="canvas"></canvas>
                     <ChartControls>
                         <DateContainer>
-                            <label for="startDate">Start date: </label>
-                            <DateInput id="startDate" />
+                            Start date: <DateInput id="startDate" />
                         </DateContainer>
                         <DateContainer>
-                            <label for="endDate">End date: &nbsp;&nbsp;</label>
-                            <DateInput id="endDate" />
+                            End date: &nbsp;&nbsp;<DateInput id="endDate" />
                         </DateContainer>
                         <CloseButton>Close</CloseButton>
                     </ChartControls>

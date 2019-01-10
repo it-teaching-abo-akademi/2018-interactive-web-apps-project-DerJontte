@@ -6,14 +6,14 @@ import {Chart} from "chart.js";
 import StockServerData from "./StockServerData";
 import BusyOverlay from "./BusyOverlay";
 
-export default class PerfGraph extends Component {
+export default class PerformanceGraph extends Component {
     static async createChartWindow(whoCalled, symbol) {
         /* This is the main method that is called upon to show the stock performance chart. */
         if (symbol === undefined) return;
 
-        /* Disable scrolling of the underlying main layer of the app. According to documentation, this disables the
-         * possibility to scroll the chart div as well on Apple Safari and related browsers, but since this app is
-          * designed to rescale all the way down to a width of 200px, that should not be a problem in practice. */
+        /* Disable scrolling of the underlying main layer of the app. According to documentation, this disables the ability
+         * to scroll the chart div as well on Apple Safari and related browsers, but since this app (and the chart div
+         * with it) is designed to rescale all the way down to a width of 200px, that should not be a problem in practice. */
         document.body.style.overflow = "hidden";
 
         BusyOverlay.set(); // Show the BusyOverlay while getting data from the server so that the user knows the app hasn't frozen.
@@ -26,14 +26,14 @@ export default class PerfGraph extends Component {
             return;
         }
 
-        let chartData = PerfGraph.parseData(symbol);
+        let chartData = PerformanceGraph.parseData(symbol);
 
         // Show the div with the graph
         let chartDiv = document.getElementById("graph_overlay").style;
         chartDiv.visibility = "visible";
 
         // Draw the graph in the div
-        PerfGraph.createChart(chartData, symbol);
+        PerformanceGraph.createChart(chartData, symbol);
     }
 
     static parseData(symbol) {
@@ -112,23 +112,23 @@ export default class PerfGraph extends Component {
         endPicker.max = maxDate;
 
         startPicker.addEventListener("change", evt => {
-            PerfGraph.redrawChart(symbol);
+            PerformanceGraph.redrawChart(symbol);
         });
 
         endPicker.addEventListener("change", evt => {
-            PerfGraph.redrawChart(symbol);
+            PerformanceGraph.redrawChart(symbol);
         });
 
         closeButton.addEventListener("click", evt => {
             localStorage.removeItem(symbol + "History");
-            PerfGraph.closeChart();
+            PerformanceGraph.closeChart();
         });
 
     }
 
     static redrawChart(symbol) {
         /* The method that is called when the user changes the dates in the date pickers. */
-        let newData = PerfGraph.parseData(symbol); // Parse the data between the new dates chosen
+        let newData = PerformanceGraph.parseData(symbol); // Parse the data between the new dates chosen
         this.perfChart.data.labels = newData.dates; // Set the new values for the x-axis
         this.perfChart.data.datasets[0].data = newData.values // Set the new values for the dataset
         this.perfChart.update(0); // Redraw the chart.
@@ -154,19 +154,20 @@ export default class PerfGraph extends Component {
             visibility: hidden;
         `;
 
-        const ChartDialog = styled.div `
+        const ChartDialog = styled.div`
             position: absolute;
+            width: 60%;
+            min-width: 650px;
             top: 5%;
             left: 50%;
-            width: 580px;
-            min-width: 215px;
             transform: translate(-50%, -3%);
             padding: 10px 10px 15px 15px;
             border: 2px solid black;
             background-color: white;
             font-family: monospace;
-            @media screen and (max-width: 660px) {
-                width: 88%;
+            @media screen and (max-width: 720px) {
+                width: 90%;
+                min-width: 215px;
             }
             @media screen and (max-height: 340px) {
                 flex-direction: column;

@@ -1,9 +1,7 @@
-export class Currency {
-    static rateEtoD = 1.1;
+/* Class for currency conversions.  */
 
-    static round(amount) {
-        return (amount * 10000).toFixed() / 10000;
-    }
+export default class Currency {
+    static rateEtoD = 1;
 
     static EtoD(amount = 1) {
         if ("EUR" in localStorage) this.rateEtoD = JSON.parse(localStorage.getItem("EUR"))["value"];

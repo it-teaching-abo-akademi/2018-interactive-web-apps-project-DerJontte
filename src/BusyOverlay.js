@@ -3,6 +3,7 @@
 import React, { Component } from "react";
 import styled from "styled-components";
 import gear from "./BusyGear.svg";
+import { ReactComponent as Gear } from './BusyGear.svg';
 
 export default class BusyOverlay extends Component {
 
@@ -44,7 +45,7 @@ export default class BusyOverlay extends Component {
             color: black;
         `;
 
-        const Spin = styled.img`
+        const Spin = styled.div`
             display: inline-block;
             width: 50%;
             animation: spin 5s infinite linear;
@@ -61,7 +62,9 @@ export default class BusyOverlay extends Component {
                 <BusyDialog>
                     Loading, please wait...
                     <p>
-                        <Spin src={gear}/>
+                        <Spin>
+                            <Gear/>
+                        </Spin>
                     </p>
                 </BusyDialog>
             </Overlay>

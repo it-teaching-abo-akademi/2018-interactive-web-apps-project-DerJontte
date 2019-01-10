@@ -4,10 +4,11 @@
 
 import React, { Component } from "react";
 import styled from "styled-components";
-import PortfolioView from "./PortfolioView";
-import {Portfolio, StockEntry} from "./PortfolioDataClasses";
-import StockServerData from "./StockServerData";
 import TopBar from "./TopBar";
+import PortfolioView from "./PortfolioView";
+import Portfolio from "./Portfolio";
+import StockEntry from "./StockEntry";
+import StockServerData from "./StockServerData";
 
 export default class App extends Component {
     portfolios = [];

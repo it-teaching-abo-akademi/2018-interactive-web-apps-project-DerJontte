@@ -2,7 +2,7 @@
 
 import React, {Component} from "react";
 import styled from "styled-components";
-import {StockEntry} from "./PortfolioDataClasses";
+import StockEntry from "./StockEntry";
 import Currency from "./Currency";
 import StockServerData from "./StockServerData";
 import PerformanceGraph from "./PerformanceGraph";
@@ -113,12 +113,6 @@ export default class PortfolioView extends Component {
         this.saveState();
     }
 
-    setSelected(portfolio, i) {
-        // This sets the selected stock in the portfolio when a row is clicked in the list.
-        portfolio.selected = i;
-        this.saveState();
-    }
-
     async createGraph(portfolio) {
         // Initiate the generation and showing of a performance graph for a selected stock.
         if (portfolio.selected === '') return;
@@ -126,9 +120,126 @@ export default class PortfolioView extends Component {
         PerformanceGraph.createChartWindow(this, symbol);
     }
 
-    createStockList(portfolio) {
-        // Create a table with a list of the stocks in a given portfolio. The table is returned as a DOM-element to the caller.
+    render() {
+        const PortfolioContainer = styled.div`
+            float: left;
+            display: flex;
+            flex-direction: column;
+            width: calc(50vw - 50px);
+            min-width: 200px;
+            max-width: 650px;
+            border: 1px solid black;
+            margin: 0 15px 20px;
+            :only-child {
+                width: calc(100vW - 50px);
+            }
+            @media screen and (max-width: 1024px) {
+                width: calc(100vw - 50px);
+            }
+        `;
 
+        const PortfolioSection = styled.div`
+            display: flex;
+            flex-wrap: wrap;
+            width: calc(100vw - 40px);
+            float: left;
+            justify-content: center;
+            @media screen and (max-width: 1024px) {
+                flex-wrap: wrap;
+            }
+            `;
+
+        let portfolioArray = [];
+
+        // Loop through the list of portfolios and create an array with rendered visualisations of them
+        for(let i = 0; i < this.portfolios.length; i++) {
+            if (this.portfolios[i] === (undefined || null)) continue;
+
+            let currentPortfolio = this.portfolios[i];
+            let deletePortfolio = this.deletePortfolio.bind(this, currentPortfolio.id);
+            let uniqueID = "id" + currentPortfolio.id;
+
+            // Each portfolio component consists of a TitleBar, a stock list and a BottomBar.
+            portfolioArray.push(
+                <PortfolioContainer>
+                    <TitleBar currentPortfolio={currentPortfolio} uniqueID={uniqueID} deletePortfolio={deletePortfolio} saveState={this.saveState} />
+                    <StockList portfolio={currentPortfolio} self={this} />
+                    <BottomBar currentPortfolio={currentPortfolio} addStock={this.addStock.bind(this, currentPortfolio)} removeStock={this.removeStock.bind(this, currentPortfolio)} createGraph={this.createGraph.bind(this, currentPortfolio)}/>
+                </PortfolioContainer>
+            )
+        }
+
+        return (
+            <PortfolioSection>
+                {portfolioArray}
+            </PortfolioSection>
+        )
+    }
+}
+
+
+class TitleBar extends Component{
+    // The title bar for the portfolio. Contains the name of the portfolio, a switch for switching between currencies,
+    // and a button to close (ie. delete) the portfolio.
+    render() {
+        const TitleBarContainer = styled.div`
+            background-color: #DDA;
+            display: flex;
+            min-height: 40px;
+            align-items: center;
+            padding: 10px;
+            border-bottom: 1px solid black;
+            text-align: center;        
+            @media screen and (max-width: 266px) {
+                    font-size: 10px;
+            }
+            @media screen and (max-height: 425px) {
+                    min-height: 46px;
+            }
+            `;
+
+        const Title = styled.div`
+            display: flex;
+            justify-content: flex-end;
+            flex-grow: 3.5;
+        `;
+
+        // The close-button is a normal button styled in CSS to mimic the classic windows close-button.
+        const CloseButton = styled.div`
+            background-color: darkred;
+            color: white;
+            font-family: Corbel, monospace;
+            font-weight: bold;
+            width: 1.4em;
+            height: 1.3em;
+            border-bottom: 1px solid darkred;
+            cursor: default;
+            margin-left: 5px;
+            :hover {
+                background-color: firebrick;
+                border: 1px solid gray;
+            }
+        `;
+
+        var currentPortfolio = this.props.currentPortfolio;
+
+        return (
+            <TitleBarContainer>
+                <Title>
+                    {currentPortfolio.name}
+                </Title>
+                <Switch labelOff="EUR" labelOn="USD" onChange={currentPortfolio.changeCurrency.bind(currentPortfolio)} saveState={this.props.saveState} on={currentPortfolio.currency === "EUR"}/>
+                <CloseButton id={"button" + this.props.uniqueID } onClick={this.props.deletePortfolio}>
+                    X
+                </CloseButton>
+            </TitleBarContainer>
+        )
+    }
+}
+
+class StockList extends Component {
+    // Create a table with a list of the stocks in a given portfolio. The table is returned as a DOM-element to the caller.
+    render() {
         const Table = styled.table`
             display: block;
             text-align: center;
@@ -187,16 +298,25 @@ export default class PortfolioView extends Component {
             margin-top: 4px;
         `;
 
+        let portfolio = this.props.portfolio;
         let stockList = portfolio.entries;
         let tableBodyData = [];
+        var self = this.props.self;
 
         // The list itself is created here as a html table-body styled with alternating colored rows
         for(let i = 0; i < stockList.length; i++) {
             if(stockList[i] == null) continue;
+
             let unitValue = portfolio.getCurrentValue(stockList[i]);
             let totalValue = portfolio.getCurrentRate(stockList[i].totalValue);
+
+            let setSelected = function (i) {
+                portfolio.selected = i;
+                self.saveState();
+            }
+
             tableBodyData.push(
-                <TableRow onClick={this.setSelected.bind(this, portfolio, i)}>
+                <TableRow onClick={setSelected.bind(self, i)}>
                     <Cell>{stockList[i].symbol}</Cell>
                     <Cell>{unitValue} {portfolio.currency}</Cell>
                     <Cell>{stockList[i].amount}</Cell>
@@ -210,136 +330,21 @@ export default class PortfolioView extends Component {
         return (
             <Table>
                 <TableHeader>
-                <HeaderRow>
-                    <Cell>Name</Cell>
-                    <Cell>Unit value</Cell>
-                    <Cell>Quantity</Cell>
-                    <Cell>Total value</Cell>
-                    <Cell>Select</Cell>
-                </HeaderRow>
+                    <HeaderRow>
+                        <Cell>Name</Cell>
+                        <Cell>Unit value</Cell>
+                        <Cell>Quantity</Cell>
+                        <Cell>Total value</Cell>
+                        <Cell>Select</Cell>
+                    </HeaderRow>
                 </TableHeader>
                 <TableBody>
-                {tableBodyData}
+                    {tableBodyData}
                 </TableBody>
             </Table>
         )
     }
-
-    render() {
-        const PortfolioContainer = styled.div`
-            float: left;
-            display: flex;
-            flex-direction: column;
-            width: calc(50vw - 50px);
-            min-width: 200px;
-            max-width: 650px;
-            border: 1px solid black;
-            margin: 0 15px 20px;
-            :only-child {
-                width: calc(100vW - 50px);
-            }
-            @media screen and (max-width: 1024px) {
-                width: calc(100vw - 50px);
-            }
-        `;
-
-        const PortfolioSection = styled.div`
-            display: flex;
-            flex-wrap: wrap;
-            width: calc(100vw - 40px);
-            float: left;
-            justify-content: center;
-            @media screen and (max-width: 1024px) {
-                flex-wrap: wrap;
-            }
-            `;
-
-        let portfolioArray = [];
-
-        // Loop through the list of portfolios and create an array with rendered visualisations of them
-        for(let i = 0; i < this.portfolios.length; i++) {
-            if (this.portfolios[i] === (undefined || null)) continue;
-
-            let currentPortfolio = this.portfolios[i];
-            let deletePortfolio = this.deletePortfolio.bind(this, currentPortfolio.id);
-            let uniqueID = "id" + currentPortfolio.id;
-
-            // Each portfolio component consists of a TitleBar, a stock list and a BottomBar.
-            portfolioArray.push(
-                <PortfolioContainer>
-                    <TitleBar currentPortfolio={currentPortfolio} uniqueID={uniqueID} deletePortfolio={deletePortfolio} saveState={this.saveState}/>
-                    {this.createStockList(currentPortfolio)}
-                    <BottomBar currentPortfolio={currentPortfolio} addStock={this.addStock.bind(this, currentPortfolio)} removeStock={this.removeStock.bind(this, currentPortfolio)} createGraph={this.createGraph.bind(this, currentPortfolio)}/>
-                </PortfolioContainer>
-            )
-        }
-
-        return (
-            <PortfolioSection>
-                {portfolioArray}
-            </PortfolioSection>
-        )
-    }
 }
-
-
-class TitleBar extends Component{
-    // The title bar for the portfolio. Contains the name of the portfolio, a switch for switching between currencies,
-    // and a button to close (ie. delete) the portfolio.
-    render() {
-        const TitleBarContainer = styled.div`
-            background-color: #DDA;
-            display: flex;
-            min-height: 40px;
-            align-items: center;
-            padding: 10px;
-            border-bottom: 1px solid black;
-            text-align: center;        
-            @media screen and (max-width: 266px) {
-                    font-size: 10px;
-            }
-            @media screen and (max-height: 425px) {
-                    min-height: 46px;
-            }
-            `;
-
-        const Title = styled.div`
-            display: flex;
-            justify-content: flex-end;
-            flex-grow: 3.5;
-        `;
-
-        // The close-button is a normal button styled in CSS to mimic the classic windows close-button.
-        const CloseButton = styled.div`
-            background-color: darkred;
-            color: white;
-            font-family: Corbel, monospace;
-            font-weight: bold;
-            width: 1.4em;
-            height: 1.3em;
-            border-bottom: 1px solid darkred;
-            cursor: default;
-            margin-left: 5px;
-            :hover {
-                background-color: firebrick;
-                border: 1px solid gray;
-            }
-        `;
-
-        return (
-            <TitleBarContainer>
-                <Title>
-                    {this.props.currentPortfolio.name}
-                </Title>
-                <Switch labelOff="EUR" labelOn="USD" onChange={this.props.currentPortfolio.changeCurrency.bind(this.props.currentPortfolio)} saveState={this.props.saveState} on={this.props.currentPortfolio.currency === "EUR"}/>
-                <CloseButton id={"button" + this.props.uniqueID } onClick={this.props.deletePortfolio}>
-                    X
-                </CloseButton>
-            </TitleBarContainer>
-        )
-    }
-}
-
 
 class BottomBar extends Component {
     // The bottom bar contains the total value of the portfolio and buttons to manipulate and visualize the contents

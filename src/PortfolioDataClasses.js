@@ -1,4 +1,4 @@
-import {Currency} from "./Currency";
+import Currency from "./Currency";
 
 export class Portfolio {
     constructor(id, name) {
@@ -10,7 +10,6 @@ export class Portfolio {
         this.currency = "EUR";
         this.addStock = this.addStock.bind(this);
         this.removeStock = this.removeStock.bind(this);
-        this.state = {};
     }
 
     addStock(...args) {

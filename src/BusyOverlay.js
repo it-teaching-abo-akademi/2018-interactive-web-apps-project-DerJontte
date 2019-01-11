@@ -2,7 +2,6 @@
 
 import React, { Component } from "react";
 import styled from "styled-components";
-import gear from "./BusyGear.svg";
 import { ReactComponent as Gear } from './BusyGear.svg';
 
 export default class BusyOverlay extends Component {

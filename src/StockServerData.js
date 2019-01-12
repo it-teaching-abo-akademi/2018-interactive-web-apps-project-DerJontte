@@ -4,6 +4,8 @@
 *
 * The doQuery-method returns quasi-http-statuses that tells the calling methods if the queries succeeded or not. */
 
+import $ from "jquery";
+
 export default class StockServerData {
     static checkTimeout(storageKey, interval) {
         // Method to check if a value in localStorage is older than a specified age in milliseconds
@@ -51,18 +53,12 @@ export default class StockServerData {
         let request = server + query + "&apikey=" + apikey;
 
         return new Promise(resolve => {
-
             // Set the request timeout to 10 seconds
             setTimeout(() => {
                 resolve(504);
             }, 10000);
 
-            let xhttp = new XMLHttpRequest(); // Create a request object
-
-            xhttp.onload = function() {
-                /* Define the action to take when the server has responded. This must be done before the request is dispatched. */
-                let returnValue = JSON.parse(this.responseText);
-
+            $.getJSON(request, function(returnValue) {
                 /* If the server responds with a message about sending more than five requests in a minute, notify the user and
                  * set a key in localStorage with a timestamp. This timestamp is used to prevent more queries to be sent within
                  * the next minute and to prevent the already sent queries to cause several popups which would seriously
@@ -86,10 +82,7 @@ export default class StockServerData {
                 localStorage.setItem(name, JSON.stringify(storable));
                 whoCalled.saveState();
                 resolve(200);
-            };
-            // Create the actual request and send it to the server.
-            xhttp.open("GET", request, true);
-            xhttp.send();
+            });
         });
     }
 }

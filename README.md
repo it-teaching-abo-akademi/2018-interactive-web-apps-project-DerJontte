@@ -1,6 +1,6 @@
 ## *SPMS - Stock Portfolio Management System*
 
-This is my first project with React.js, a web application to manage and visualize stock portfolios.
+This is my first project with React.js: a web application to manage and visualize stock portfolios.
 
 In addition to React, the app uses the libraries jQuery, Babel and chart.js.
 

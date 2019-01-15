@@ -8,19 +8,19 @@ self.__precacheManifest = [
     "url": "/2018-interactive-web-apps-project-DerJontte/static/js/runtime~main.d71a834e.js"
   },
   {
-    "revision": "642831d08536b6097471",
-    "url": "/2018-interactive-web-apps-project-DerJontte/static/js/main.642831d0.chunk.js"
+    "revision": "3700cadc6993b6b55668",
+    "url": "/2018-interactive-web-apps-project-DerJontte/static/js/main.3700cadc.chunk.js"
   },
   {
     "revision": "bdf500a116c1e7b8d247",
     "url": "/2018-interactive-web-apps-project-DerJontte/static/js/1.bdf500a1.chunk.js"
   },
   {
-    "revision": "642831d08536b6097471",
+    "revision": "3700cadc6993b6b55668",
     "url": "/2018-interactive-web-apps-project-DerJontte/static/css/main.f3ed7098.chunk.css"
   },
   {
-    "revision": "f2b963067e19a64c84c5384d0df96d4f",
+    "revision": "60fb8ceae5f1520ec105e835a03fc861",
     "url": "/2018-interactive-web-apps-project-DerJontte/index.html"
   }
 ];

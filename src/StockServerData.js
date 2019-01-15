@@ -48,7 +48,7 @@ export default class StockServerData {
 
     static doQuery(query, name, JSONKeys) {
         let whoCalled = this.whoCalled;
-        let apikey = "myownapikey"; // The API key for the server. Free ones are available, but a "legit" one is actually not required... :-o
+        let apikey = "H8OY9QDX5HW2FG6T"; // The API key for the server. Free ones are available, but a "legit" one is actually not required... :-o
         let server ="https://www.alphavantage.co/query?function=";
         let request = server + query + "&apikey=" + apikey;
 

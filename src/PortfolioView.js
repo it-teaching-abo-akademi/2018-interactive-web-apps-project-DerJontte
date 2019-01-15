@@ -212,12 +212,11 @@ class TitleBar extends Component{
             font-weight: bold;
             width: 1.4em;
             height: 1.3em;
-            border: 0;
+            border-bottom: 1px solid darkred;
             cursor: default;
             margin-left: 5px;
             :hover {
                 background-color: firebrick;
-                border: 1px solid gray;
             }
         `;
 
@@ -230,7 +229,7 @@ class TitleBar extends Component{
                 </Title>
                 <Switch labelOff="EUR" labelOn="USD" onChange={currentPortfolio.changeCurrency.bind(currentPortfolio)} saveState={this.props.saveState} on={currentPortfolio.currency === "EUR"}/>
                 <CloseButton id={"button" + this.props.uniqueID } onClick={this.props.deletePortfolio}>
-                   x
+                    x
                 </CloseButton>
             </TitleBarContainer>
         )
@@ -482,7 +481,10 @@ class Switch extends Component {
             border-radius: 10px;
             background-color: #BBB;
             transform: rotate(${rot}deg);
-        `;
+             :hover {
+                border-color: firebrick;
+            }
+       `;
         return (
             <SwitchContainer>
                 {this.props.labelOff}

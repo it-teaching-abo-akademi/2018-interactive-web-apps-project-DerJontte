@@ -477,7 +477,7 @@ class Switch extends Component {
             border: 0;
             padding: 0;
             margin: 5px;
-            border-right: 15px solid #D00;
+            border-right: 15px solid darkred;
             outline: none;
             border-radius: 10px;
             background-color: #BBB;

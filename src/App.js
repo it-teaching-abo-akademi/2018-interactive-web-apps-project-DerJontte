@@ -58,6 +58,7 @@ export default class App extends Component {
         /* The user id prompted for a name for the portfolio. Empty strings and duplicate names are allowed, but if the
          * user presses the cancel-button no portfolio is created. */
         let name = prompt("Please enter a name for the new portfolio.");
+        // eslint-disable-next-line
         if (name == undefined) return;
         this.portfolios.push(new Portfolio(this.counter, name));
 

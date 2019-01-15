@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/3.6.3/workbox-sw.js");
 
 importScripts(
-  "/2018-interactive-web-apps-project-DerJontte/precache-manifest.50357672e54806809296018982ebff5b.js"
+  "/2018-interactive-web-apps-project-DerJontte/precache-manifest.1ea5086fbc3c835a8526c4c020562e63.js"
 );
 
 workbox.clientsClaim();

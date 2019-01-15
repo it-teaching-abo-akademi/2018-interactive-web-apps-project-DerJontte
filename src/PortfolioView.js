@@ -212,7 +212,7 @@ class TitleBar extends Component{
             font-weight: bold;
             width: 1.4em;
             height: 1.3em;
-            border-bottom: 1px solid darkred;
+            border: 0;
             cursor: default;
             margin-left: 5px;
             :hover {
@@ -230,7 +230,7 @@ class TitleBar extends Component{
                 </Title>
                 <Switch labelOff="EUR" labelOn="USD" onChange={currentPortfolio.changeCurrency.bind(currentPortfolio)} saveState={this.props.saveState} on={currentPortfolio.currency === "EUR"}/>
                 <CloseButton id={"button" + this.props.uniqueID } onClick={this.props.deletePortfolio}>
-                    X
+                   x
                 </CloseButton>
             </TitleBarContainer>
         )
